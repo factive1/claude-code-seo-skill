@@ -1,5 +1,41 @@
 # Changelog
 
+## content-library-audit 1.0.0 — 2026-09-10
+
+Second skill in the repo. Audits and remediates an existing body of content rather than
+writing a piece. The guide stays the standard for both; this adds the verification a
+corpus needs.
+
+Built from an audit of a 70-article library that moved from a mean of 1.6/10 to a pass at
+9.0+, and encodes what that audit learned the hard way.
+
+Added:
+
+- `content-library-audit/SKILL.md` — ten gates, two lanes (remediation for content of
+  unknown provenance, maintenance for content written to the standard), and the rules that
+  only surface at scale
+- `content-library-audit/scripts/ailint.mjs` — deterministic linter for AI-accent
+  patterns, structure, citation density, and FAQ answer shape. Config-driven for house
+  style. Its banned-claims check distinguishes a claim being asserted from one being
+  debunked, so it doesn't fire on the pages doing the right thing
+- `content-library-audit/scripts/similarity.mjs` — corpus paragraph-similarity scanner on
+  a single pinned metric, because two agents using different metrics reported 0.76 and
+  0.45 for the same pair
+- `content-library-audit/reference/rubric.md` — scores as `min(voice, rank)` so a strong
+  half can't carry a weak one, with hard caps for fabrication and false product claims
+- `content-library-audit/reference/architectures.md` — ten named structures, one assigned
+  per article, because asking writers to "vary the structure" doesn't work
+- `content-library-audit/templates/` — claims ledger and house-style config
+
+## seo-geo-content 2.1.0 — 2026-09-10
+
+Changed:
+
+- Description narrowed to a single piece of content, so it no longer competes with the
+  audit skill on the word "audit"
+- Added a handoff section pointing at `content-library-audit` when the target is a
+  directory or a library
+
 ## 2.0.0 (2026-09-09)
 
 The guide was rebuilt around the current understanding of why AI text sounds like AI, and cross-referenced against two editing skills: [humanizer](https://github.com/blader/humanizer) 3.0 and [no-ai-slop](https://github.com/petergyang/no-ai-slop). The old version over-invested in vocabulary lists and under-covered the structural tells that current models produce.

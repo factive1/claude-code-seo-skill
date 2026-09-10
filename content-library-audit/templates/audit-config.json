@@ -1,0 +1,20 @@
+{
+  "_comment": "Copy to the root of the project being audited. The linter reads ./audit-config.json, or set AUDIT_CONFIG=path.",
+  "contentGlobExt": [".md", ".mdx"],
+  "headingCase": "sentence",
+  "frontmatterDateField": "updatedAt",
+  "expectedDate": null,
+  "targets": {
+    "flagsPer500": 0,
+    "emDashPer500": 2,
+    "titleCaseHeadings": 0,
+    "sentenceSD": 6.5,
+    "contractionsPer500": 5,
+    "externalLinks": 3,
+    "faqItems": 0,
+    "faqLengthSD": 0
+  },
+  "bannedPhrases": [
+    "_Claims this project has verified as false or unsourceable. Grows as the audit runs._"
+  ]
+}

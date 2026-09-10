@@ -1,6 +1,13 @@
-# Claude Code SEO skill
+# Claude Code SEO skills
 
-Write content that ranks in Google, gets cited by ChatGPT and Perplexity, and reads like a person wrote it.
+Two skills. One writes content that ranks in Google, gets cited by ChatGPT and Perplexity, and reads like a person wrote it. The other audits a library you already have.
+
+| Skill | Use it for |
+|---|---|
+| `seo-geo-content` | One piece. Write it, edit it, or review a draft. |
+| `content-library-audit` | Many pieces. Grade a blog, resource section, or docs set and remediate what fails. |
+
+The guide is the standard for both. The audit skill runs it across a corpus and adds the verification that scale requires.
 
 ## The problem
 
@@ -12,9 +19,11 @@ There's a second problem that only shows up in SEO content. Guidance that says "
 
 ## What's in the repo
 
-`seo-geo-content-guide.md` is the guide. It's the source of truth and the file to read.
+`seo-geo-content-guide.md` is the guide. It's the source of truth and the file both skills read.
 
-`SKILL.md` makes the guide installable as a Claude Code skill and says how to apply it.
+`SKILL.md` makes the guide installable as a Claude Code skill and says how to apply it to a piece of content.
+
+`content-library-audit/` is the second skill: the pipeline for auditing many pieces at once. It contains its own `SKILL.md`, a deterministic linter, a corpus similarity scanner, the scoring rubric, and templates for the claims ledger and house-style config.
 
 `CHANGELOG.md` tracks versions.
 
@@ -34,7 +43,7 @@ A conflict table resolves the places where an SEO requirement seems to break a v
 
 The rest: a section on adding a pulse without adding a new template, a five-step rewrite pass that replaces find-and-replace, the pre-publish checklists, and two full before-and-after examples, one with the 2023-era tells and one with the tells current models produce.
 
-## Install as a Claude Code skill
+## Install
 
 Clone the repo into your skills directory. For every project on your machine:
 
@@ -48,10 +57,17 @@ For one project only:
 git clone https://github.com/factive1/claude-code-seo-skill.git .claude/skills/seo-geo-content
 ```
 
-Claude Code picks the skill up on the next session. Ask for an article, a comparison page, or a content audit and the skill loads on its own, or call it directly:
+That installs the writing skill. To also install the audit skill, link its folder so Claude Code sees it as a second skill:
+
+```sh
+ln -s ~/.claude/skills/seo-geo-content/content-library-audit ~/.claude/skills/content-library-audit
+```
+
+Claude Code picks them up on the next session. Ask for an article and the writing skill loads; point at a directory of articles and the audit skill loads. Or call either directly:
 
 ```text
 /seo-geo-content write a comparison of Jobber and Housecall Pro for plumbers
+/content-library-audit audit everything in src/content/resources
 ```
 
 To update later:
@@ -71,6 +87,32 @@ Does every number, name, and quote trace to a URL? If not, cut it or mark it.
 Can an LLM quote your main point in one sentence? If the key claim is buried or spread across paragraphs, restructure.
 
 Could this sentence move unchanged to a competitor's site? If yes, it's filler.
+
+## Three questions to ask your library
+
+These only make sense across a corpus, which is why the second skill exists.
+
+Would an independent reader reach the same grade as the person who wrote it? Writers certify their own work as clean, and it isn't. Grading has to be done by someone who didn't write it.
+
+Read every opening back to back, then every closing. Do any rhyme? Repetition is invisible from inside a single file and obvious across twelve.
+
+Does any sentence claim your product does something? Check it against the file that defines what your product does, not against the copy. Sales-adjacent sentences are where invented capabilities appear.
+
+## What the audit skill does
+
+Ten gates, in order, each one blocking the next. The load-bearing ones:
+
+**Verify sources before rewriting anything.** Skip this and you rewrite the corpus with fresh fabrications instead of the old ones. In the audit this skill was built from, this step found the library's most-repeated statistic — present in twenty-five files — had no primary source and described something that cannot be measured.
+
+**Audit product claims early.** Grep every CTA against the files that define the product. Ten invented capabilities turned up in one library and nearly all sat in a closing pitch.
+
+**Never let writers grade their own work.** Every writing agent reported success. Independent graders found four *new* fabrications introduced during the rounds that were fixing the first six.
+
+**Re-scan the whole corpus after every fix round.** Fixes create defects. Standardizing a fact made two articles overcorrect into denying it. Renaming headings moved the collisions elsewhere. Every device that breaks monotony becomes monotony once it spreads.
+
+**When two verifications disagree, delete the claim.** Five independent attempts to count the categories on one policy page produced five different totals. The number added nothing and would have broken at the next reorganization.
+
+The durable output is a claims ledger: verified sources, verified product facts, and the list of claims that turned out to be unsourceable. It's what makes the second audit cheaper than the first, and it feeds back into the writing skill.
 
 ## Credits
 

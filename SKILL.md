@@ -1,9 +1,9 @@
 ---
 name: seo-geo-content
-description: Write or edit content that ranks in Google, gets cited by ChatGPT, Perplexity, and AI Overviews, and reads like a person wrote it. Use when the user asks for a blog post, article, guide, comparison, listicle, landing page, or FAQ meant to rank in search or get cited by AI, or asks to humanize, de-slop, audit, or refresh existing SEO content.
+description: Write or edit a piece of content that ranks in Google, gets cited by ChatGPT, Perplexity, and AI Overviews, and reads like a person wrote it. Use when the user asks for a blog post, article, guide, comparison, listicle, landing page, or FAQ meant to rank in search or get cited by AI, or asks to humanize, de-slop, review, or refresh a specific draft or page. For auditing many pieces at once — a library, resource section, blog, or docs set — use content-library-audit instead.
 license: MIT
 metadata:
-  version: "2.0.0"
+  version: "2.1.0"
 ---
 
 # SEO + GEO content
@@ -29,6 +29,17 @@ Run the guide's rewrite pass before the checklist: mark every tell strongest fir
 ## Editing or auditing existing content
 
 When the user asks whether a draft sounds like AI, name each pattern from the guide that appears, quote the line, and give the fix in a few words. Do not score the draft or guess whether AI wrote it. When the user asks for an edit, make the minimum effective edit: fix the tells, keep strong human sentences as they are, and list what changed. The writer should recognize the result as their own.
+
+## When it's a whole library, not a piece
+
+This skill works on one piece at a time, and the standard holds when a person is applying
+it to one piece. Across a corpus it fails in ways a single-piece review can't see: writers
+certify their own work as clean, repetition is invisible from inside one file, and
+fabrication recurs during the rounds meant to fix it.
+
+If the user points at a directory, a resource section, a blog, or more than a handful of
+pieces, use `content-library-audit`. It runs this guide as its standard and adds the
+verification the scale requires.
 
 ## What to return
 
